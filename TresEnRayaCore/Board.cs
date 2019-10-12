@@ -50,5 +50,12 @@ namespace TresEnRayaCore
                 },
             };
         }
+
+        public void SetCell(Cell cell)
+        {
+            var targetCell = this[cell.X, cell.Y];
+            targetCell.SetValue(cell.GetValue());
+        }
+
     }
 }

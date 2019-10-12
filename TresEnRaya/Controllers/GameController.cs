@@ -21,9 +21,16 @@ namespace TresEnRaya.Controllers
         {
             return View(ticTacToe);
         }
+        [HttpGet("Reset")]
+        public ActionResult Reset()
+        {
+            ticTacToe.Reset();
+            return RedirectToAction(nameof(Index));
+        }
         [HttpPost]
         public ActionResult ClickCell(Cell cell)
         {
+            ticTacToe.Click(cell);
             return RedirectToAction(nameof(Index));
         }
     }

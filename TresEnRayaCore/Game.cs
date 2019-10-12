@@ -29,6 +29,23 @@ namespace TresEnRayaCore
             return Board;
         }
 
-       
+        public void Reset()
+        {
+            GC.SuppressFinalize(Board);
+            Board = new Board();
+        }
+
+        public void Click(Cell cell)
+        {
+            char value = GetActualPlayer();
+            cell.SetValue(value);
+            Board.SetCell(cell);
+        }
+
+        private char GetActualPlayer()
+        {
+            return 'X';
+        }
+
     }
 }
