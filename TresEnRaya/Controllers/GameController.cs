@@ -17,9 +17,14 @@ namespace TresEnRaya.Controllers
             ticTacToe = TicTacToe;
         }
         [HttpGet]
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View(ticTacToe);
+        }
+        [HttpPost]
+        public ActionResult ClickCell(Cell cell)
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 }
