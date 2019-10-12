@@ -1,0 +1,52 @@
+﻿@model Game
+@{
+    ViewData["Title"] = "Tres en Raya";
+}
+
+<h1 class="text-center">Tres en raya</h1>
+<div class="d-flex justify-content-center">
+    <table class="text-center">
+        <thead>
+            <tr>
+                <th style="width: 30px;"></th>
+                @foreach (var header in GetHeadersOfGame())
+                {
+                    <th style="width: 100px;">@header</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in GetHeadersOfGame())
+            {
+                <tr>
+
+                    <td style="width:30px;">@row</td>
+                    @foreach (var col in GetHeadersOfGame())
+                    {
+                        <td style="width: 100px; height: 100px;">
+                            <form>
+                                <button type="submit" class="btn btn-info" style="width: 100px; height: 100px;">@GetBoard()[row, col].GetValue()</button>
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@functions {
+    int [] GetHeadersOfGame()
+    {
+        List<int> headers = new List<int>();
+        for (int i=0; i<Model.GetBoard().Size; i++)
+        {
+            headers.Add(i);
+        }
+        return headers.ToArray();
+    }
+    Board GetBoard()
+    {
+        return Model.GetBoard();
+    }
+}
