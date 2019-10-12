@@ -58,6 +58,10 @@
     }
     string GetStatusText()
     {
+        if (GetBoard().AllSelected())
+        {
+            return "Empate";
+        }
         if (!Model.AnyWins()) {
             return $"Turno de: {GetCurrentPlayerName()}";
         }
@@ -65,14 +69,18 @@
     }
     string GetClassOfThisCell(int col, int row)
     {
+        if (Model.AnyWins())
+        {
+            return "btn btn-light";
+        }
         if (GetBoard()[col, row].IsNotEmpty())
         {
-            return "btn btn-light disabled";
+            return "btn btn-light";
         }
         return "btn btn-info";
     }
     bool IsDisabled(int col, int row)
     {
-        return GetBoard()[col, row].IsNotEmpty();
+        return GetBoard()[col, row].IsNotEmpty() || Model.AnyWins();
     }
 }

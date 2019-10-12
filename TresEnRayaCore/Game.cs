@@ -42,6 +42,7 @@ namespace TresEnRayaCore
         {
             GC.SuppressFinalize(Board);
             Board = new Board();
+            BuildPlayers();
         }
         public Player GetCurrentPlayer()
         {

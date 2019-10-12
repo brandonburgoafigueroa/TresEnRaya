@@ -55,6 +55,10 @@ namespace TresEnRayaCore
         {
             return GetWinner() != ' ';
         }
+        public bool AllSelected()
+        {
+            return Cells.Where(x => x.IsNotEmpty()).Count() == Size*Size;
+        }
         public char GetWinner()
         {
             var values = Cells.Where(x=>x.IsNotEmpty()).Select(x => x.GetValue()).Distinct();
