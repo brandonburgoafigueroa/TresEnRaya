@@ -4,6 +4,7 @@
 }
 
 <h1 class="text-center">Tres en raya</h1>
+<h3 class"="text-center">@GetStatusText()</h3>
 <div class="d-flex justify-content-center">
     <table class="text-center">
         <thead>
@@ -50,5 +51,16 @@
     Board GetBoard()
     {
         return Model.GetBoard();
+    }
+    char GetCurrentPlayerName()
+    {
+        return Model.GetCurrentPlayer().Indicator;
+    }
+    string GetStatusText()
+    {
+        if (Model.AnyWins()) { 
+            return $"Turno de: {GetCurrentPlayerName()}";
+        }
+        return $"Gano {Model.GetWinner()}";
     }
 }

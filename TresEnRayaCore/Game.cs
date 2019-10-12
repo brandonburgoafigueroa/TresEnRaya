@@ -21,30 +21,46 @@ namespace TresEnRayaCore
         }
         private void BuildPlayers()
         {
-            Human = new Player() { Indicator = 'X' };
-            IA = new Player() { Indicator = '0' };
+            Human = new Player() { Indicator = 'X' , IsCurrent = true};
+            IA = new Player() { Indicator = '0' ,IsCurrent = false};
         }
+
         public Board GetBoard()
         {
             return Board;
         }
-
+        public bool AnyWins()
+        {
+            return false;
+        }
+        public Player GetWinner()
+        {
+            return Human;
+        }
         public void Reset()
         {
             GC.SuppressFinalize(Board);
             Board = new Board();
         }
-
+        public Player GetCurrentPlayer()
+        {
+            return Human.IsCurrent ? Human : IA;
+        }
         public void Click(Cell cell)
         {
             char value = GetActualPlayer();
             cell.SetValue(value);
             Board.SetCell(cell);
+            ChangeTurn();
         }
-
+        private void ChangeTurn()
+        {
+            Human.AlternateTurn();
+            IA.AlternateTurn();
+        }
         private char GetActualPlayer()
         {
-            return 'X';
+            return Human.IsCurrent ? Human.Indicator : IA.Indicator;
         }
 
     }

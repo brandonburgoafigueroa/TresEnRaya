@@ -7,5 +7,10 @@ namespace TresEnRayaCore
     public class Player
     {
         public char Indicator { get; set; }
+        public bool IsCurrent { set; get; }
+        public void AlternateTurn()
+        {
+            IsCurrent = !IsCurrent;
+        }
     }
 }
