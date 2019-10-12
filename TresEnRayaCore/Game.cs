@@ -31,11 +31,12 @@ namespace TresEnRayaCore
         }
         public bool AnyWins()
         {
-            return false;
+            return Board.AnyWins();
         }
         public Player GetWinner()
         {
-            return Human;
+            char value = Board.GetWinner();
+            return Human.Indicator == value ? Human : IA;
         }
         public void Reset()
         {

@@ -51,6 +51,66 @@ namespace TresEnRayaCore
             };
         }
 
+        public bool AnyWins()
+        {
+            return GetWinner() != ' ';
+        }
+        public char GetWinner()
+        {
+            var values = Cells.Where(x=>x.IsNotEmpty()).Select(x => x.GetValue()).Distinct();
+            foreach (var value in values)
+            {
+                var cells = Cells.Where(x => x.GetValue() == value);
+                for (int i = 0; i < Size; i++)
+                {
+                    var cellsOfRow = cells.Where(x => x.X == i);
+                    if (cellsOfRow.Count() == Size)
+                    {
+                        return value;
+                    }
+                }
+                for (int i = 0; i < Size; i++)
+                {
+                    var cellsOfCols = cells.Where(x => x.Y == i);
+                    if (cellsOfCols.Count() == Size)
+                    {
+                        return value;
+                    }
+                }
+                var cellsOfFirstDiagonal = new List<Cell>();
+
+               for (int i = 0; i < Size; i++)
+               {
+                    var cell = cells.SingleOrDefault(x=>x.X == i && x.Y == i);
+                    if (cell != null)
+                    {
+                        cellsOfFirstDiagonal.Add(this[i, i]);
+                    }
+               }
+                if (cellsOfFirstDiagonal.Count() == Size)
+                {
+                    return value;
+                }
+                var cellsOfSecondDiagonal = new List<Cell>();
+
+                for (int i = 0; i < Size; i++)
+                {
+                    var cell = cells.SingleOrDefault(x => x.X == (Size-1)-i && x.Y == i);
+                    if (cell != null)
+                    {
+                        cellsOfSecondDiagonal.Add(this[i, i]);
+                    }
+                }
+                if (cellsOfSecondDiagonal.Count() == Size)
+                {
+                    return value;
+                }
+
+            }
+            return ' ';
+        }
+
+
         public void SetCell(Cell cell)
         {
             var targetCell = this[cell.X, cell.Y];

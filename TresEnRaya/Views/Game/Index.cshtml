@@ -28,7 +28,7 @@
                             <form method="post">
                                 <input name="x" value="@col" hidden/>
                                 <input name="y" value="@row" hidden/>
-                                <button type="submit" class="btn btn-info" style="width: 100px; height: 100px;">@GetBoard()[col, row].GetValue()</button>
+                                <button type="submit" disabled="@IsDisabled(col, row)" class="@GetClassOfThisCell(col, row)" style="width: 100px; height: 100px;">@GetBoard()[col, row].GetValue()</button>
                             </form>
                         </td>
                     }
@@ -58,9 +58,21 @@
     }
     string GetStatusText()
     {
-        if (Model.AnyWins()) { 
+        if (!Model.AnyWins()) {
             return $"Turno de: {GetCurrentPlayerName()}";
         }
-        return $"Gano {Model.GetWinner()}";
+        return $"Gano {Model.GetWinner().Indicator}";
+    }
+    string GetClassOfThisCell(int col, int row)
+    {
+        if (GetBoard()[col, row].IsNotEmpty())
+        {
+            return "btn btn-light disabled";
+        }
+        return "btn btn-info";
+    }
+    bool IsDisabled(int col, int row)
+    {
+        return GetBoard()[col, row].IsNotEmpty();
     }
 }

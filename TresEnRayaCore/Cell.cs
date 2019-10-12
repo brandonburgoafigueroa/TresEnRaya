@@ -23,5 +23,10 @@ namespace TresEnRayaCore
             return Value;
         }
         private char Value { get; set; }
+
+        public bool IsNotEmpty()
+        {
+            return this.Value != ' ';
+        }
     }
 }
